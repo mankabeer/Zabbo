@@ -150,18 +150,68 @@ body.loaded .delay-5 { transition-delay: 0.7s; }
 .toggle-icon { display: inline-block; transition: transform 0.3s ease; }
 .story-toggle[aria-expanded="true"] .toggle-icon { transform: rotate(180deg); }
 
-/* ─── Episodes ───────────────────────────────────── */
-.episodes { background: var(--bg-dark); padding: 6rem 0; }
-.episodes-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
-@media (min-width: 640px) { .episodes-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .episodes-grid { grid-template-columns: repeat(3, 1fr); } }
-.episode-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.75rem 1.5rem; transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition); position: relative; overflow: hidden; }
-.episode-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), transparent); opacity: 0; transition: opacity var(--transition); }
-.episode-card:hover { transform: translateY(-4px); border-color: rgba(201,162,39,0.4); box-shadow: var(--shadow-gold); }
-.episode-card:hover::before { opacity: 1; }
-.episode-number { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
-.episode-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; line-height: 1.3; }
-.episode-card p { color: var(--muted-light); font-size: 0.9rem; line-height: 1.7; }
+/* ─── Zee5 Episode Section ───────────────────────── */
+.z5-section { background: #0a0a14; padding: 5rem 0; }
+.z5-wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 1.25rem; }
+@media (min-width: 768px) { .z5-wrap { padding: 0 2rem; } }
+@media (min-width: 1024px) { .z5-wrap { padding: 0 3rem; } }
+
+/* Platform banner */
+.z5-banner { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.z5-banner-label { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #888; font-weight: 500; }
+.z5-logo { display: inline-flex; align-items: baseline; gap: 1px; font-family: var(--font-body); font-size: 1.6rem; font-weight: 900; letter-spacing: -0.02em; line-height: 1; }
+.z5-logo-zee { color: #fff; }
+.z5-logo-five { color: #6B1FDB; }
+.z5-banner-divider { width: 1px; height: 20px; background: #333; }
+
+/* Show meta */
+.z5-show-meta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.z5-show-left { display: flex; flex-direction: column; gap: 0.5rem; }
+.z5-original-badge { display: inline-block; background: #6B1FDB; color: #fff; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; width: fit-content; }
+.z5-show-title { font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; color: #fff; line-height: 1; letter-spacing: 0.05em; }
+.z5-show-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.z5-show-tags span { font-size: 0.75rem; color: #888; }
+.z5-show-tags .z5-dot { color: #555; }
+.z5-watch-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #6B1FDB; color: #fff; border: none; border-radius: 4px; padding: 0.7rem 1.6rem; font-size: 0.9rem; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background 0.2s ease, transform 0.2s ease; align-self: flex-start; }
+.z5-watch-btn:hover { background: #8B3FEB; transform: translateY(-1px); }
+.z5-watch-btn-icon { font-size: 0.8rem; }
+
+/* Season selector */
+.z5-season-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid #1e1e30; padding-bottom: 0.75rem; }
+.z5-season-tab { background: none; border: none; color: #888; font-size: 0.85rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 20px; cursor: pointer; transition: background 0.2s, color 0.2s; }
+.z5-season-tab.active { background: #6B1FDB; color: #fff; }
+
+/* Episode carousel */
+.z5-carousel-wrap { position: relative; }
+.z5-carousel { display: flex; gap: 0.9rem; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 1rem; scrollbar-width: none; }
+.z5-carousel::-webkit-scrollbar { display: none; }
+
+/* Episode card */
+.z5-card { flex: 0 0 240px; scroll-snap-align: start; cursor: pointer; }
+@media (min-width: 640px) { .z5-card { flex: 0 0 270px; } }
+@media (min-width: 1024px) { .z5-card { flex: 0 0 300px; } }
+
+.z5-thumb { position: relative; aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; margin-bottom: 0.65rem; }
+.z5-thumb-grad { position: absolute; inset: 0; }
+.z5-thumb-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%); }
+.z5-thumb-title { position: absolute; bottom: 0.5rem; left: 0.65rem; right: 0.65rem; font-size: 0.75rem; font-weight: 600; color: #fff; line-height: 1.3; z-index: 2; }
+.z5-ep-pill { position: absolute; top: 0.5rem; left: 0.5rem; background: rgba(0,0,0,0.7); color: #fff; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; padding: 2px 6px; border-radius: 3px; z-index: 2; }
+.z5-hd-pill { position: absolute; top: 0.5rem; right: 0.5rem; background: rgba(107,31,219,0.85); color: #fff; font-size: 0.55rem; font-weight: 800; letter-spacing: 0.1em; padding: 2px 5px; border-radius: 3px; z-index: 2; }
+.z5-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 3; opacity: 0; transition: opacity 0.25s ease; }
+.z5-play-circle { width: 44px; height: 44px; background: rgba(107,31,219,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+.z5-play-icon { width: 0; height: 0; border-top: 9px solid transparent; border-bottom: 9px solid transparent; border-left: 16px solid #fff; margin-left: 3px; }
+.z5-card:hover .z5-play { opacity: 1; }
+@media (hover: none) { .z5-play { opacity: 1; } .z5-play-circle { width: 36px; height: 36px; } }
+
+.z5-ep-meta { font-size: 0.7rem; color: #888; margin-bottom: 0.3rem; }
+.z5-ep-title { font-size: 0.9rem; font-weight: 700; color: #f0f0f0; margin-bottom: 0.3rem; line-height: 1.3; }
+.z5-ep-desc { font-size: 0.75rem; color: #888; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* CTA strip */
+.z5-cta { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; padding-top: 2rem; border-top: 1px solid #1e1e30; }
+.z5-cta-text { font-size: 0.85rem; color: #888; }
+.z5-subscribe-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: none; border: 2px solid #6B1FDB; color: #9B59F5; border-radius: 4px; padding: 0.6rem 1.4rem; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: background 0.2s, color 0.2s; }
+.z5-subscribe-btn:hover { background: #6B1FDB; color: #fff; }
 
 /* ─── Characters ─────────────────────────────────── */
 .characters { background: var(--bg-alt); padding: 6rem 0; }
@@ -179,7 +229,7 @@ body.loaded .delay-5 { transition-delay: 0.7s; }
 .supporting-heading { font-family: var(--font-display); font-size: 1.3rem; font-weight: 600; color: var(--muted-light); margin-bottom: 1.75rem; }
 .supporting-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
 @media (min-width: 640px) { .supporting-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 1024px) { .supporting-grid { grid-template-columns: repeat(5, 1fr); } }
+@media (min-width: 1024px) { .supporting-grid { grid-template-columns: repeat(4, 1fr); } }
 .support-card { text-align: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform var(--transition), border-color var(--transition); }
 .support-card:hover { transform: translateY(-3px); border-color: rgba(201,162,39,0.4); }
 .support-image-wrap { aspect-ratio: 1; overflow: hidden; }
@@ -354,49 +404,150 @@ body.loaded .delay-5 { transition-delay: 0.7s; }
       </div>
     </section>
 
-    <section id="episodes" class="episodes reveal">
-      <div class="container">
-        <header class="section-header">
-          <span class="section-label">7 Episodes</span>
-          <h2 class="section-title">Structure</h2>
-        </header>
-        <div class="episodes-grid">
-          <article class="episode-card reveal-child" style="--delay:0.05s">
-            <div class="episode-number">EP. 1</div>
-            <h3 class="episode-title">Wrong Sequence</h3>
-            <p>Apoorva and Anandi separately trapped in traffic. Apoorva meets actress Poorna after years. Anandi finds Poorna's Instagram post. A Sunday mall visit and a mediocre couple-game leaves them questioning themselves.</p>
-          </article>
-          <article class="episode-card reveal-child" style="--delay:0.1s">
-            <div class="episode-number">EP. 2</div>
-            <h3 class="episode-title">The Bluff</h3>
-            <p>A bitter fight over the couple-game. A late-night video call from Anandi's sister about her husband's suspicious behaviour ignites new doubts. The card game Zabboo sparks further discord. Apoorva's boss invites them to Poorna's experimental play.</p>
-          </article>
-          <article class="episode-card reveal-child" style="--delay:0.15s">
-            <div class="episode-number">EP. 3</div>
-            <h3 class="episode-title">Poker</h3>
-            <p>They watch Poorna's play. Anandi secretly compares herself with the vibrant actress. A dinner with the boss descends into drunken revelations. Anandi announces she will cut contact with Apoorva during her Goa conference.</p>
-          </article>
-          <article class="episode-card reveal-child" style="--delay:0.2s">
-            <div class="episode-number">EP. 4</div>
-            <h3 class="episode-title">Trump Card</h3>
-            <p>Anandi in Goa, alone on her birthday. She follows a mysterious stranger — Asif — Apoorva's exact double. He takes her to a beautiful island. Certain it is her husband's prank, she surrenders to a dreamy evening. She wakes alone.</p>
-          </article>
-          <article class="episode-card reveal-child" style="--delay:0.25s">
-            <div class="episode-number">EP. 5</div>
-            <h3 class="episode-title">Shuffle</h3>
-            <p>Anandi returns to a perfectly normal Apoorva. Rohan, her ex-boyfriend and classical singer, drops in from the USA, reawakening something dormant in her. Asif's wild photographs from Goa arrive. The confusion deepens.</p>
-          </article>
-          <article class="episode-card reveal-child" style="--delay:0.3s">
-            <div class="episode-number">EP. 6</div>
-            <h3 class="episode-title">Challenge</h3>
-            <p>Asif reappears in Bangalore, confessing his feelings. He vanishes before Anandi can expose the prank. A family gathering in Goa. Both are judging each other. Apoorva is lured into a VR gaming room, where a masked woman calling herself Anna mocks his narcissism and slips a card into his pocket.</p>
-          </article>
-          <article class="episode-card episode-card--final reveal-child" style="--delay:0.35s">
-            <div class="episode-number">EP. 7</div>
-            <h3 class="episode-title">Showdown</h3>
-            <p>Apoorva follows the card's address to a pub where a masked singer drags him by motorbike to a dark hilltop and declares Anandi is leaving him forever. He returns frantic — to find her perfectly ordinary at home. Asif and Anna meet as strangers on that same hill. Apoorva and Anandi's playful alter-egos finally merge — and a new chapter begins.</p>
-          </article>
+    <section id="episodes" class="z5-section reveal">
+      <div class="z5-wrap">
+
+        <!-- Platform banner -->
+        <div class="z5-banner">
+          <span class="z5-banner-label">As seen on</span>
+          <div class="z5-logo"><span class="z5-logo-zee">ZEE</span><span class="z5-logo-five">5</span></div>
+          <div class="z5-banner-divider"></div>
+          <span class="z5-banner-label">A glimpse of how Zabboo would live on the platform</span>
         </div>
+
+        <!-- Show meta -->
+        <div class="z5-show-meta">
+          <div class="z5-show-left">
+            <span class="z5-original-badge">ZEE5 ORIGINAL</span>
+            <h2 class="z5-show-title">ZABBOO</h2>
+            <div class="z5-show-tags">
+              <span>2026</span><span class="z5-dot">·</span>
+              <span>A</span><span class="z5-dot">·</span>
+              <span>7 Episodes</span><span class="z5-dot">·</span>
+              <span>Marathi</span><span class="z5-dot">·</span>
+              <span>Romantic Thriller Comedy</span>
+            </div>
+          </div>
+          <button class="z5-watch-btn"><span class="z5-watch-btn-icon">▶</span> Watch Now</button>
+        </div>
+
+        <!-- Season tab -->
+        <div class="z5-season-bar">
+          <button class="z5-season-tab active">Season 1</button>
+        </div>
+
+        <!-- Episode carousel -->
+        <div class="z5-carousel-wrap">
+          <div class="z5-carousel">
+
+            <div class="z5-card">
+              <div class="z5-thumb">
+                <div class="z5-thumb-grad" style="background:linear-gradient(135deg,#1a0533,#3d0f8a)"></div>
+                <div class="z5-thumb-overlay"></div>
+                <span class="z5-ep-pill">E1</span>
+                <span class="z5-hd-pill">HD</span>
+                <div class="z5-play"><div class="z5-play-circle"><div class="z5-play-icon"></div></div></div>
+                <div class="z5-thumb-title">Wrong Sequence</div>
+              </div>
+              <div class="z5-ep-meta">Episode 1 · 45 min</div>
+              <div class="z5-ep-title">Wrong Sequence</div>
+              <div class="z5-ep-desc">Apoorva meets actress Poorna after years. Anandi discovers the meeting through Instagram. A mall visit and a couple game leaves both questioning themselves.</div>
+            </div>
+
+            <div class="z5-card">
+              <div class="z5-thumb">
+                <div class="z5-thumb-grad" style="background:linear-gradient(135deg,#0a1628,#1e3a5f)"></div>
+                <div class="z5-thumb-overlay"></div>
+                <span class="z5-ep-pill">E2</span>
+                <span class="z5-hd-pill">HD</span>
+                <div class="z5-play"><div class="z5-play-circle"><div class="z5-play-icon"></div></div></div>
+                <div class="z5-thumb-title">The Bluff</div>
+              </div>
+              <div class="z5-ep-meta">Episode 2 · 42 min</div>
+              <div class="z5-ep-title">The Bluff</div>
+              <div class="z5-ep-desc">A bitter fight. A late-night call from Anandi's sister about her husband's suspicious behaviour ignites new doubts at home.</div>
+            </div>
+
+            <div class="z5-card">
+              <div class="z5-thumb">
+                <div class="z5-thumb-grad" style="background:linear-gradient(135deg,#1a0a0a,#5f1e1e)"></div>
+                <div class="z5-thumb-overlay"></div>
+                <span class="z5-ep-pill">E3</span>
+                <span class="z5-hd-pill">HD</span>
+                <div class="z5-play"><div class="z5-play-circle"><div class="z5-play-icon"></div></div></div>
+                <div class="z5-thumb-title">Poker</div>
+              </div>
+              <div class="z5-ep-meta">Episode 3 · 48 min</div>
+              <div class="z5-ep-title">Poker</div>
+              <div class="z5-ep-desc">They watch Poorna's play. A dinner with the boss descends into drunken revelations. Anandi declares she will cut contact during her Goa trip.</div>
+            </div>
+
+            <div class="z5-card">
+              <div class="z5-thumb">
+                <div class="z5-thumb-grad" style="background:linear-gradient(135deg,#001a1a,#0f4f4f)"></div>
+                <div class="z5-thumb-overlay"></div>
+                <span class="z5-ep-pill">E4</span>
+                <span class="z5-hd-pill">HD</span>
+                <div class="z5-play"><div class="z5-play-circle"><div class="z5-play-icon"></div></div></div>
+                <div class="z5-thumb-title">Trump Card</div>
+              </div>
+              <div class="z5-ep-meta">Episode 4 · 50 min</div>
+              <div class="z5-ep-title">Trump Card</div>
+              <div class="z5-ep-desc">Anandi in Goa on her birthday. She meets Asif — Apoorva's exact look-alike — and spends a dreamy evening convinced it is her husband's prank.</div>
+            </div>
+
+            <div class="z5-card">
+              <div class="z5-thumb">
+                <div class="z5-thumb-grad" style="background:linear-gradient(135deg,#1a1400,#4f4500)"></div>
+                <div class="z5-thumb-overlay"></div>
+                <span class="z5-ep-pill">E5</span>
+                <span class="z5-hd-pill">HD</span>
+                <div class="z5-play"><div class="z5-play-circle"><div class="z5-play-icon"></div></div></div>
+                <div class="z5-thumb-title">Shuffle</div>
+              </div>
+              <div class="z5-ep-meta">Episode 5 · 44 min</div>
+              <div class="z5-ep-title">Shuffle</div>
+              <div class="z5-ep-desc">Back home to a perfectly normal Apoorva. Rohan visits. Asif's photographs from Goa arrive. The confusion inside Anandi deepens dangerously.</div>
+            </div>
+
+            <div class="z5-card">
+              <div class="z5-thumb">
+                <div class="z5-thumb-grad" style="background:linear-gradient(135deg,#0a001a,#2d0a5f)"></div>
+                <div class="z5-thumb-overlay"></div>
+                <span class="z5-ep-pill">E6</span>
+                <span class="z5-hd-pill">HD</span>
+                <div class="z5-play"><div class="z5-play-circle"><div class="z5-play-icon"></div></div></div>
+                <div class="z5-thumb-title">Challenge</div>
+              </div>
+              <div class="z5-ep-meta">Episode 6 · 47 min</div>
+              <div class="z5-ep-title">Challenge</div>
+              <div class="z5-ep-desc">Asif reappears in Bangalore and confesses his feelings. A family trip to Goa. A mysterious masked woman ambushes Apoorva and leaves a calling card.</div>
+            </div>
+
+            <div class="z5-card">
+              <div class="z5-thumb">
+                <div class="z5-thumb-grad" style="background:linear-gradient(135deg,#1a0a1a,#4a1a4a)"></div>
+                <div class="z5-thumb-overlay"></div>
+                <span class="z5-ep-pill">E7</span>
+                <span class="z5-hd-pill">HD</span>
+                <div class="z5-play"><div class="z5-play-circle"><div class="z5-play-icon"></div></div></div>
+                <div class="z5-thumb-title">Showdown</div>
+              </div>
+              <div class="z5-ep-meta">Episode 7 · 52 min · Finale</div>
+              <div class="z5-ep-title">Showdown</div>
+              <div class="z5-ep-desc">Apoorva follows the card to a hilltop confrontation. Asif and Anna meet as strangers. The alter-egos merge — and a new chapter begins.</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="z5-cta">
+          <span class="z5-cta-text">Stream all 7 episodes</span>
+          <button class="z5-subscribe-btn">Subscribe to ZEE5 Premium</button>
+          <button class="z5-watch-btn"><span class="z5-watch-btn-icon">▶</span> Start Watching</button>
+        </div>
+
       </div>
     </section>
 
@@ -460,10 +611,24 @@ body.loaded .delay-5 { transition-delay: 0.7s; }
           </div>
           <div class="support-card reveal-child" style="--delay:0.25s">
             <div class="support-image-wrap">
-              <img src="assets/images/page14_X10.jpg" alt="Rupali Bhave &amp; Pradeep Vaidya as Apoorva's Parents" loading="lazy" />
+              <img src="assets/images/page14_X10.jpg" alt="Chinmayee Sumeet as Anandi's Mom" loading="lazy" />
+            </div>
+            <p class="char-name">Anandi's Mom</p>
+            <p class="actor-name">Chinmayee Sumeet</p>
+          </div>
+          <div class="support-card reveal-child" style="--delay:0.3s">
+            <div class="support-image-wrap">
+              <img src="assets/images/page13_X6_349x241.png" alt="Rupali Bhave &amp; Pradeep Vaidya as Apoorva's Parents" loading="lazy" />
             </div>
             <p class="char-name">Apoorva's Parents</p>
             <p class="actor-name">Rupali Bhave &amp; Pradeep Vaidya</p>
+          </div>
+          <div class="support-card reveal-child" style="--delay:0.35s">
+            <div class="support-image-wrap">
+              <img src="assets/images/page9_X8.jpg" alt="Gautam — Apoorva's Boss" loading="lazy" />
+            </div>
+            <p class="char-name">Gautam</p>
+            <p class="actor-name">Apoorva's Boss</p>
           </div>
         </div>
       </div>
